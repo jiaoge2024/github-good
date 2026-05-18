@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub 神仙级项目 - 文本转语音</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #111;
+      background-color: #f3eddc;
+      background-image: radial-gradient(#dfd4b8 0.8px, transparent 0.8px);
+      background-size: 12px 12px;
+    }
+    header { max-width: 1100px; margin: 0 auto; padding: 34px 18px 18px; }
+    h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: 0; }
+    header p { margin: 0; color: #595959; }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: #fbf7e9;
+      border: 1px solid #ddd3b8;
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 10px 26px rgba(60, 48, 28, 0.10);
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .project-card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(60,48,28,.16); }
+    .github-preview { border: 1px solid #d8d8d8; border-radius: 4px; overflow: hidden; background: #fff; font-size: 8px; color: #24292f; }
+    .gh-top { height: 24px; display: flex; align-items: center; gap: 10px; padding: 0 10px; background: #24292f; color: white; }
+    .gh-top .mark { font-size: 10px; }
+    .gh-repo { padding: 9px 12px; border-bottom: 1px solid #d8dee4; color: #0969da; }
+    .gh-repo em { color: #57606a; border: 1px solid #d0d7de; border-radius: 10px; padding: 1px 5px; font-style: normal; }
+    .gh-tabs { display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #d8dee4; color: #57606a; }
+    .gh-body { display: grid; grid-template-columns: 1fr 120px; gap: 12px; padding: 10px 12px; }
+    .gh-files { border: 1px solid #d0d7de; border-radius: 4px; overflow: hidden; }
+    .gh-files p, .gh-branch { margin: 0; padding: 7px 8px; border-bottom: 1px solid #d8dee4; display: flex; justify-content: space-between; gap: 8px; }
+    .gh-files p:last-child { border-bottom: 0; }
+    .gh-branch { background: #f6f8fa; }
+    .gh-branch button { background: #238636; border: 0; color: white; border-radius: 4px; padding: 2px 8px; font-size: 8px; }
+    aside p { margin: 6px 0; line-height: 1.35; }
+    .meta { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; padding: 12px 0 4px; }
+    .avatar { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg,#ff9ab0,#ffd16b); }
+    .star { color: #d5a900; font-size: 26px; line-height: 1; }
+    .star-count { color: #f1df13; font-size: 18px; min-width: 42px; }
+    .language { background: #1f6feb; color: white; border-radius: 4px; padding: 5px 8px; font-size: 12px; font-weight: 700; }
+    .score { color: #755f00; font-size: 12px; }
+    .topics span { background: #fff6b8; border-radius: 4px; padding: 4px 8px; margin-right: 5px; font-size: 11px; }
+    h2 { margin: 8px 0 12px; font-size: 22px; line-height: 1.15; }
+    .summary { margin: 0 0 14px; font-size: 16px; line-height: 1.65; }
+    .features { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; color: #333; }
+    .features b { font-size: 14px; font-weight: 500; border-bottom: 3px solid #ef4d3f; padding-bottom: 3px; }
+    pre { margin: 0; padding: 11px 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background: #fff8db; color: #0969da; border-radius: 5px; font-size: 12px; }
+    footer { border-bottom: 1px dashed #9bb69b; padding: 12px 0 2px; text-align: right; font-size: 12px; color: #222; }
+    @media (max-width: 520px) {
+      main { grid-template-columns: 1fr; padding: 12px; }
+      .gh-body { grid-template-columns: 1fr; }
+      .project-card { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GitHub 神仙级项目</h1>
+    <p>关键词：文本转语音 · 生成时间：2026-05-18 14:18:42 · 共 10 个项目</p>
+  </header>
+  <main>
+    
+    <article class="project-card" onclick="window.open('https://github.com/coqui-ai/TTS','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>coqui-ai</strong> / <strong>TTS</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">dev <button>Code</button></div>
+            <p><strong>coqui-ai</strong> update docs and examples <time>2026-05-18</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>🐸💬 - a deep learning toolkit for Text-to-Speech, battle-tested in research and production</p>
+            <small>45,321 stars · 6,098 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">45,321</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 141</span>
+        <span class="topics"><span>Python</span><span>deep-learning</span><span>glow-tts</span></span>
+      </div>
+      <h2>TTS</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 🐸💬 - a deep learning toolkit for Text-to-Speech, battle-tested in research and production</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b></div>
+      <pre><code>$ git clone https://github.com/coqui-ai/TTS.git &amp;&amp; cd TTS</code></pre>
+      <footer>github.com/coqui-ai/TTS</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/RVC-Boss/GPT-SoVITS','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>RVC-Boss</strong> / <strong>GPT-SoVITS</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">main <button>Code</button></div>
+            <p><strong>RVC-Boss</strong> update docs and examples <time>2026-05-18</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>1 min voice data can also be used to train a good TTS model! (few shot voice cloning)</p>
+            <small>57,551 stars · 6,278 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">57,551</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 140</span>
+        <span class="topics"><span>Python</span><span>text-to-speech</span><span>TTS</span></span>
+      </div>
+      <h2>GPT-SoVITS</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 1 min voice data can also be used to train a good TTS model! (few shot voice cloning)</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b></div>
+      <pre><code>$ git clone https://github.com/RVC-Boss/GPT-SoVITS.git &amp;&amp; cd GPT-SoVITS</code></pre>
+      <footer>github.com/RVC-Boss/GPT-SoVITS</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/index-tts/index-tts','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>index-tts</strong> / <strong>index-tts</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">main <button>Code</button></div>
+            <p><strong>index-tts</strong> update docs and examples <time>2026-05-18</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>An Industrial-Level Controllable and Efficient Zero-Shot Text-To-Speech System</p>
+            <small>20,581 stars · 2,545 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">20,581</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 137</span>
+        <span class="topics"><span>Python</span><span>bigvgan</span><span>cross-lingual</span></span>
+      </div>
+      <h2>index-tts</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 An Industrial-Level Controllable and Efficient Zero-Shot Text-To-Speech System</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b></div>
+      <pre><code>$ git clone https://github.com/index-tts/index-tts.git &amp;&amp; cd index-tts</code></pre>
+      <footer>github.com/index-tts/index-tts</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/OpenBMB/VoxCPM','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>OpenBMB</strong> / <strong>VoxCPM</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">main <button>Code</button></div>
+            <p><strong>OpenBMB</strong> update docs and examples <time>2026-05-18</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>VoxCPM2: Tokenizer-Free TTS for Multilingual Speech Generation, Creative Voice Design, and True-to-Life Cloning</p>
+            <small>19,075 stars · 2,272 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">19,075</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 137</span>
+        <span class="topics"><span>音频</span><span>deeplearning</span><span>minicpm</span></span>
+      </div>
+      <h2>VoxCPM</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 VoxCPM2: Tokenizer-Free TTS for Multilingual Speech Generation, Creative Voice Design, and Tru</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b><b>音频</b></div>
+      <pre><code>$ git clone https://github.com/OpenBMB/VoxCPM.git &amp;&amp; cd VoxCPM</code></pre>
+      <footer>github.com/OpenBMB/VoxCPM</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/DrewThomasson/ebook2audiobook','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>DrewThomasson</strong> / <strong>ebook2audiobook</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">main <button>Code</button></div>
+            <p><strong>DrewThomasson</strong> update docs and examples <time>2026-05-18</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>Generate audiobooks from e-books, voice cloning &amp; 1158+ languages!</p>
+            <small>18,925 stars · 1,566 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">18,925</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 136</span>
+        <span class="topics"><span>Python</span><span>audiobook</span><span>audiobooks</span></span>
+      </div>
+      <h2>ebook2audiobook</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 Generate audiobooks from e-books, voice cloning &amp; 1158+ languages!</p>
+      <div class="features"><b>语音 / TTS</b><b>音频</b></div>
+      <pre><code>$ git clone https://github.com/DrewThomasson/ebook2audiobook.git &amp;&amp; cd ebook2audiobook</code></pre>
+      <footer>github.com/DrewThomasson/ebook2audiobook</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/fishaudio/fish-speech','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>fishaudio</strong> / <strong>fish-speech</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">main <button>Code</button></div>
+            <p><strong>fishaudio</strong> update docs and examples <time>2026-05-18</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>SOTA Open Source TTS</p>
+            <small>30,380 stars · 2,578 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">30,380</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 136</span>
+        <span class="topics"><span>Python</span><span>llama</span><span>transformer</span></span>
+      </div>
+      <h2>fish-speech</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 SOTA Open Source TTS</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b></div>
+      <pre><code>$ git clone https://github.com/fishaudio/fish-speech.git &amp;&amp; cd fish-speech</code></pre>
+      <footer>github.com/fishaudio/fish-speech</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/mozilla/TTS','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>mozilla</strong> / <strong>TTS</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">master <button>Code</button></div>
+            <p><strong>mozilla</strong> update docs and examples <time>2026-05-17</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>:robot: :speech_balloon: Deep learning for Text to Speech  (Discussion forum: https://discourse.mozilla.org/c/tts)</p>
+            <small>10,136 stars · 1,325 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">10,136</strong>
+        <span class="language">Jupyter Notebook</span>
+        <span class="score">神仙指数 134</span>
+        <span class="topics"><span>Jupyter Notebook</span><span>dataset-analysis</span><span>deep-learning</span></span>
+      </div>
+      <h2>TTS</h2>
+      <p class="summary">一个面向 Jupyter Notebook 生态的开源项目，核心能力是 :robot: :speech_balloon: Deep learning for Text to Speech (Discussion forum: https:/</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b></div>
+      <pre><code>$ git clone https://github.com/mozilla/TTS.git &amp;&amp; cd TTS</code></pre>
+      <footer>github.com/mozilla/TTS</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/abus-aikorea/voice-pro','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>abus-aikorea</strong> / <strong>voice-pro</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">main <button>Code</button></div>
+            <p><strong>abus-aikorea</strong> update docs and examples <time>2026-05-18</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot Voice Cloning (E2 &amp; F5-TTS, CosyVoice), with Whisper audio processing, YouTube download, Demucs vocal isolation, and multilingual translation.</p>
+            <small>9,634 stars · 1,326 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">9,634</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 134</span>
+        <span class="topics"><span>Python</span><span>audiobook</span><span>faster-whisper</span></span>
+      </div>
+      <h2>voice-pro</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot V</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b><b>音频</b></div>
+      <pre><code>$ git clone https://github.com/abus-aikorea/voice-pro.git &amp;&amp; cd voice-pro</code></pre>
+      <footer>github.com/abus-aikorea/voice-pro</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/PaddlePaddle/PaddleSpeech','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>PaddlePaddle</strong> / <strong>PaddleSpeech</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">develop <button>Code</button></div>
+            <p><strong>PaddlePaddle</strong> update docs and examples <time>2026-05-16</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>Easy-to-use Speech Toolkit including Self-Supervised Learning model, SOTA/Streaming ASR with punctuation, Streaming TTS with text frontend, Speaker Verification System, End-to-End Speech Translation and Keyword Spotting. Won NAACL2022 Best Demo Award.</p>
+            <small>12,599 stars · 1,954 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">12,599</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 133</span>
+        <span class="topics"><span>Python</span><span>asr</span><span>code-switch</span></span>
+      </div>
+      <h2>PaddleSpeech</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 Easy-to-use Speech Toolkit including Self-Supervised Learning model, SOTA/Streaming ASR with p</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b></div>
+      <pre><code>$ git clone https://github.com/PaddlePaddle/PaddleSpeech.git &amp;&amp; cd PaddleSpeech</code></pre>
+      <footer>github.com/PaddlePaddle/PaddleSpeech</footer>
+    </article>
+    
+
+    <article class="project-card" onclick="window.open('https://github.com/netease-youdao/EmotiVoice','_blank')">
+      <div class="github-preview" aria-label="GitHub repository preview">
+        <div class="gh-top"><span class="mark">●</span><span>Platform</span><span>Solutions</span><span>Resources</span><span>Open Source</span><span>Pricing</span></div>
+        <div class="gh-repo"><strong>netease-youdao</strong> / <strong>EmotiVoice</strong> <em>Public</em></div>
+        <div class="gh-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Actions</span><span>Projects</span><span>Security</span><span>Insights</span></div>
+        <div class="gh-body">
+          <div class="gh-files">
+            <div class="gh-branch">main <button>Code</button></div>
+            <p><strong>netease-youdao</strong> update docs and examples <time>2026-05-17</time></p>
+            <p>src <small>core implementation and modules</small></p>
+            <p>README.md <small>usage, installation and examples</small></p>
+          </div>
+          <aside>
+            <strong>About</strong>
+            <p>EmotiVoice 😊: a Multi-Voice and Prompt-Controlled TTS Engine</p>
+            <small>8,479 stars · 752 forks</small>
+          </aside>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="avatar"></span>
+        <span class="star">★</span>
+        <strong class="star-count">8,479</strong>
+        <span class="language">Python</span>
+        <span class="score">神仙指数 132</span>
+        <span class="topics"><span>Python</span><span>AI</span><span>deep-learning</span></span>
+      </div>
+      <h2>EmotiVoice</h2>
+      <p class="summary">一个面向 Python 生态的开源项目，核心能力是 EmotiVoice 😊: a Multi-Voice and Prompt-Controlled TTS Engine</p>
+      <div class="features"><b>语音 / TTS</b><b>语音识别</b></div>
+      <pre><code>$ git clone https://github.com/netease-youdao/EmotiVoice.git &amp;&amp; cd EmotiVoice</code></pre>
+      <footer>github.com/netease-youdao/EmotiVoice</footer>
+    </article>
+    
+  </main>
+</body>
+</html>
