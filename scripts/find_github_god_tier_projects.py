@@ -305,13 +305,96 @@ def zh_topics(repo: dict) -> list[str]:
 
 
 def summary(repo: dict) -> str:
-    desc = repo.get("description") or "这个项目在相关领域具有较高关注度，可作为优先调研的开源方案。"
+    """Generate a beginner-friendly Chinese description for the project."""
+    desc = repo.get("description") or ""
     desc = re.sub(r"\s+", " ", desc).strip()
-    if re.search(r"[\u4e00-\u9fff]", desc):
-        text = desc
-    else:
-        text = f"一个面向 {repo.get('language') or '开发者'} 生态的开源项目，核心能力是 {desc}"
-    return text[:120]
+    name = repo.get("name", "")
+    language = repo.get("language") or ""
+    topics = repo.get("topics") or []
+
+    # If description already has Chinese, use it directly
+    if re.search(r"[一-鿿]", desc):
+        return f"🎯 {desc[:200]}"
+
+    # Map topics to Chinese labels
+    topic_zh = [TOPIC_ZH.get(t.lower(), t) for t in topics[:4] if TOPIC_ZH.get(t.lower(), t)]
+    domain = "、".join(topic_zh) if topic_zh else ""
+
+    # English term -> Chinese translation map for core abilities
+    zh_term_map = [
+        ("tts", "文字转语音"),
+        ("text-to-speech", "文字转语音"),
+        ("text to speech", "文字转语音"),
+        ("speech synthesis", "语音合成"),
+        ("voice cloning", "声音克隆"),
+        ("voice clone", "声音克隆"),
+        ("voice conversion", "声音转换"),
+        ("asr", "语音识别"),
+        ("speech recognition", "语音识别"),
+        ("speech-to-text", "语音转文字"),
+        ("audio generation", "音频生成"),
+        ("music generation", "音乐生成"),
+        ("image generation", "图像生成"),
+        ("image processing", "图像处理"),
+        ("large language model", "大语言模型"),
+        ("llm", "大语言模型"),
+        ("natural language processing", "自然语言处理"),
+        ("machine learning", "机器学习"),
+        ("deep learning", "深度学习"),
+        ("neural network", "神经网络"),
+        ("inference", "模型推理"),
+        ("fine-tuning", "模型微调"),
+        ("real-time", "实时处理"),
+        ("low-latency", "低延迟"),
+        ("high performance", "高性能"),
+        ("cross-platform", "跨平台"),
+        ("multi-language", "多语言支持"),
+        ("api", "API接口"),
+        ("deploy", "一键部署"),
+        ("framework", "开发框架"),
+        ("library", "工具库"),
+        ("cli", "命令行工具"),
+        ("web interface", "Web界面"),
+        ("gui", "图形界面"),
+        ("browser", "浏览器端"),
+        ("android", "安卓端"),
+        ("mobile", "移动端"),
+        ("offline", "离线使用"),
+        ("privacy", "保护隐私"),
+        ("local", "本地运行"),
+        ("streaming", "流式处理"),
+        ("batch", "批量处理"),
+        ("multilingual", "多语种"),
+        ("chinese", "中文支持"),
+        ("mandarin", "中文/普通话"),
+        ("english", "英文"),
+        ("japanese", "日文"),
+        ("korean", "韩文"),
+    ]
+
+    # Scan description for Chinese descriptions of key abilities
+    desc_lower = desc.lower()
+    found_zh = []
+    for eng, zh in zh_term_map:
+        if eng in desc_lower and zh not in found_zh:
+            found_zh.append(zh)
+    found_zh = found_zh[:4]
+
+    # No description at all
+    if not desc:
+        domain_info = f"，专注于{domain}领域" if domain else ""
+        return f"🎯 {name} 是一个{language or '跨平台'}开源项目{domain_info}。它在 GitHub 上热度很高，适合相关领域的开发者学习和使用。"
+
+    # Build Chinese intro
+    lang_info = f"{language}" if language else "跨平台"
+    domain_info = f"，属于{domain}方向" if domain else ""
+    ability_info = f"，核心能力：{'、'.join(found_zh)}" if found_zh else ""
+
+    intro = f"🎯 {name} 是一个{lang_info}开源项目{domain_info}{ability_info}。"
+    eng_part = desc[:150] if len(desc) > 150 else desc
+
+    result = f"{intro}{eng_part}"
+    return result[:300]
 
 
 def feature_labels(repo: dict) -> list[str]:
@@ -355,6 +438,8 @@ def repo_card(repo: dict, rank: int, intent: dict | None = None, query: str = ""
     score = round(score_repo(repo, intent, query))
     topic_html = "".join(f"<span>{esc(t)}</span>" for t in topics[:3])
     feature_html = "".join(f"<b>{esc(t)}</b>" for t in features)
+    # Generate Chinese summary for both the summary paragraph and the About section
+    cn_summary = summary(repo)
     return f"""
     <article class="project-card" onclick="window.open('{esc(url)}','_blank')">
       <div class="github-preview" aria-label="GitHub repository preview">
@@ -370,7 +455,7 @@ def repo_card(repo: dict, rank: int, intent: dict | None = None, query: str = ""
           </div>
           <aside>
             <strong>About</strong>
-            <p>{esc(repo.get("description") or "High quality open source project.")}</p>
+            <p>{esc(cn_summary)}</p>
             <small>{stars:,} stars · {forks:,} forks</small>
           </aside>
         </div>
@@ -384,10 +469,10 @@ def repo_card(repo: dict, rank: int, intent: dict | None = None, query: str = ""
         <span class="topics">{topic_html}</span>
       </div>
       <h2>{esc(name)}</h2>
-      <p class="summary">{esc(summary(repo))}</p>
+      <p class="summary">{esc(cn_summary)}</p>
       <div class="features">{feature_html}</div>
       <pre><code>$ git clone {esc(clone_url)} &amp;&amp; cd {esc(name)}</code></pre>
-      <footer>github.com/{esc(full_name)}</footer>
+      <footer><a href="{esc(url)}" target="_blank" onclick="event.stopPropagation()">🔗 github.com/{esc(full_name)}</a></footer>
     </article>
     """
 
@@ -458,6 +543,8 @@ def render_html(query: str, repos: list[dict], intent: dict | None = None) -> st
     .features b {{ font-size: 14px; font-weight: 500; border-bottom: 3px solid #ef4d3f; padding-bottom: 3px; }}
     pre {{ margin: 0; padding: 11px 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background: #fff8db; color: #0969da; border-radius: 5px; font-size: 12px; }}
     footer {{ border-bottom: 1px dashed #9bb69b; padding: 12px 0 2px; text-align: right; font-size: 12px; color: #222; }}
+    footer a {{ color: #0969da; text-decoration: none; font-weight: 500; }}
+    footer a:hover {{ text-decoration: underline; }}
     @media (max-width: 520px) {{
       main {{ grid-template-columns: 1fr; padding: 12px; }}
       .gh-body {{ grid-template-columns: 1fr; }}
