@@ -226,11 +226,14 @@ def normalize_query(query: str) -> str:
         "后台": "backend",
         "部署": "deploy",
         "爬虫": "crawler scraper",
+        "万能工具箱": "all-in-one toolbox universal toolkit",
+        "万能": "all-in-one universal",
+        "工具箱": "toolbox toolkit",
     }
     expanded = query
     for zh, en in replacements.items():
         if zh in query:
-            expanded += " " + en
+            expanded = expanded.replace(zh, en)
     return expanded
 
 
